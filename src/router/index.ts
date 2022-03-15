@@ -17,19 +17,19 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'home',
-        component: () => import('@/views/Home.vue')
+        component: () => import('@/views/tabs/HomePage.vue')
       },
       {
         path: 'custom-payment',
-        component: () => import('@/views/Transaction.vue')
+        component: () => import('@/views/tabs/TransactionPage.vue')
       },
       {
         path: 'history',
-        component: () => import('@/views/History.vue')
+        component: () => import('@/views/tabs/HistoryPage.vue')
       },
       {
         path: 'set-budget',
-        component: () => import('@/views/Budget.vue')
+        component: () => import('@/views/tabs/BudgetPage.vue')
       },
     ]
   }
