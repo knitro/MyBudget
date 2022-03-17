@@ -1,6 +1,6 @@
 <template>
-    <ion-header color="primary">
-      <ion-toolbar>
+    <ion-header>
+      <ion-toolbar color="primary">
         <ion-title>MyBudget</ion-title>
       </ion-toolbar>
     </ion-header>
