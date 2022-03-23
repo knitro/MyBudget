@@ -1,14 +1,18 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '../views/TabsPage.vue'
+import HomePage from '../views/tabs/HomePage.vue'
+import TransactionPage from '../views/tabs/TransactionPage.vue'
+import HistoryPage from '../views/tabs/HistoryPage.vue'
+import BudgetPage from '../views/tabs/BudgetPage.vue'
 
 const routes: Array<RouteRecordRaw> = [
-  // {
-  //   path: '/',
-  //   redirect: '/tabs/tab1'
-  // },
   {
     path: '/',
+    redirect: '/tabs/home'
+  },
+  {
+    path: '/tabs',
     component: TabsPage,
     children: [
       {
@@ -17,19 +21,23 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'home',
-        component: () => import('@/views/tabs/HomePage.vue')
+        // component: () => import('@/views/tabs/HomePage.vue')
+        component: HomePage
       },
       {
-        path: 'custom-payment',
-        component: () => import('@/views/tabs/TransactionPage.vue')
+        path: 'transaction',
+        // component: () => import('@/views/tabs/TransactionPage.vue')
+        component: TransactionPage
       },
       {
         path: 'history',
-        component: () => import('@/views/tabs/HistoryPage.vue')
+        // component: () => import('@/views/tabs/HistoryPage.vue')
+        component: HistoryPage
       },
       {
-        path: 'set-budget',
-        component: () => import('@/views/tabs/BudgetPage.vue')
+        path: 'budget',
+        // component: () => import('@/views/tabs/BudgetPage.vue')
+        component: BudgetPage
       },
     ]
   }

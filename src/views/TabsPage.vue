@@ -2,24 +2,24 @@
   <ion-page>
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-
       <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="home-tab" href="/home">
+
+        <ion-tab-button tab="home" href="/tabs/home">
           <ion-icon :icon="home" />
           <ion-label>Home</ion-label>
         </ion-tab-button>
           
-        <ion-tab-button tab="transaction-tab" href="/transaction">
+        <ion-tab-button tab="transaction" href="/tabs/transaction">
           <ion-icon :icon="card" />
           <ion-label>Transaction</ion-label>
         </ion-tab-button>
         
-        <ion-tab-button tab="history-tab" href="/history">
+        <ion-tab-button tab="history" href="/tabs/history">
           <ion-icon :icon="arrowUndo" />
           <ion-label>History</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="budget-tab" href="/budget">
+        <ion-tab-button tab="budget" href="/tabs/budget">
           <ion-icon :icon="document" />
           <ion-label>Budget</ion-label>
         </ion-tab-button>

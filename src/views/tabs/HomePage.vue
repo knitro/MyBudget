@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <header-item />
+    <HeaderItem />
     <ion-content :fullscreen="true">
 
       <balance-display type="circular" />
