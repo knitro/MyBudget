@@ -2,6 +2,8 @@
 /*Imports*/
 //////////////////////////////////////////////
 
+import { getFromStorage, saveToStorage } from "./capacitor-storage"
+
 
 //////////////////////////////////////////////
 /*Interface Initialisation*/
@@ -35,10 +37,9 @@ const default_TransactionStore: TransactionStore = {
 
 const storageKey : string = "NearestRestaurants"
 
-export async function storeNewTransaction(a: Restaurant[]) : Promise<boolean> {
-  const object : NearestRestaurantStore = {
-    nearestRestaurants : a,
-    timestamp : new Date()
+export async function storeNewTransaction(a: Transaction[]) : Promise<boolean> {
+  const object : TransactionStore = {
+    transactions : a,
   }
   return await saveToStorage(storageKey, object)
 }
@@ -47,13 +48,13 @@ export async function storeNewTransaction(a: Restaurant[]) : Promise<boolean> {
 /*Retrieval Functions*/
 //////////////////////////////////////////////
 
-export async function getNearestRestaurants() : Promise<NearestRestaurantStore> {
+export async function getNearestRestaurants() : Promise<TransactionStore> {
 
   const data = await getFromStorage(storageKey);
 
   if (typeof data.value === 'string') {
-    return (JSON.parse(data.value) as NearestRestaurantStore);
+    return (JSON.parse(data.value) as TransactionStore);
   } else { //Null Case
-    return Object.assign({}, default_NearestRestaurantStore);
+    return Object.assign({}, default_TransactionStore);
   }
 }
