@@ -10,7 +10,19 @@ import { getFromStorage, saveToStorage } from "./capacitor-storage";
 
 const storageKey : string = "balance"
 
-export async function storeBalance(a: number) : Promise<boolean> {
+export async function addBalance(a: number) : Promise<boolean> {
+  let currentBalance = await getBalance()
+  currentBalance += a;
+  return await saveToStorage(storageKey, currentBalance)
+}
+
+export async function removeBalance(a: number) : Promise<boolean> {
+  let currentBalance = await getBalance()
+  currentBalance -= a;
+  return await saveToStorage(storageKey, currentBalance)
+}
+
+export async function setBalance(a: number) : Promise<boolean> {
   return await saveToStorage(storageKey, a)
 }
 

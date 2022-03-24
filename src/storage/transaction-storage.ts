@@ -13,7 +13,7 @@ interface TransactionStore {
     transactions    : Transaction[]
 }
 
-interface Transaction {
+export interface Transaction {
   amount    : number
   timestamp : Date
   notes     : string
@@ -28,7 +28,6 @@ interface Transaction {
  */
 const default_TransactionStore: TransactionStore = {
     transactions: [],
-
 }
 
 //////////////////////////////////////////////
@@ -37,11 +36,17 @@ const default_TransactionStore: TransactionStore = {
 
 const storageKey : string = "Transaction"
 
-export async function storeNewTransaction(a: Transaction[]) : Promise<boolean> {
+export async function setTransactions(a: Transaction[]) : Promise<boolean> {
   const object : TransactionStore = {
     transactions : a,
   }
   return await saveToStorage(storageKey, object)
+}
+
+export async function storeNewTransaction(a: Transaction) : Promise<boolean> {
+  let currentStore : TransactionStore = await getFromStorage(storageKey);
+  currentStore.transactions.push(a)
+  return await saveToStorage(storageKey, currentStore)
 }
 
 //////////////////////////////////////////////
