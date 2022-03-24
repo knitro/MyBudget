@@ -35,7 +35,7 @@ const default_TransactionStore: TransactionStore = {
 /*Updater Functions*/
 //////////////////////////////////////////////
 
-const storageKey : string = "NearestRestaurants"
+const storageKey : string = "Transaction"
 
 export async function storeNewTransaction(a: Transaction[]) : Promise<boolean> {
   const object : TransactionStore = {
@@ -48,7 +48,7 @@ export async function storeNewTransaction(a: Transaction[]) : Promise<boolean> {
 /*Retrieval Functions*/
 //////////////////////////////////////////////
 
-export async function getNearestRestaurants() : Promise<TransactionStore> {
+export async function getTransactions() : Promise<TransactionStore> {
 
   const data = await getFromStorage(storageKey);
 
