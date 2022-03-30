@@ -14,9 +14,9 @@ import { Storage } from '@capacitor/storage';
  * @param info - the info to store
  * @returns true if saving was successful, otherwise false
  */
-export async function saveToStorage(key: string, info : any) : Promise<boolean> {
+export async function saveToStorage<T>(key: string, info : T) : Promise<boolean> {
 
-  let valueToSave : string = JSON.stringify(info);
+  const valueToSave : string = JSON.stringify(info);
 
   const returnValue = await Storage.set({
     key: key,
@@ -36,7 +36,7 @@ export async function saveToStorage(key: string, info : any) : Promise<boolean> 
  * @param key - the key that the info was stored at
  * @returns the instance as a JSON string (will need to be parsed) or null if nothing was found/error
  */
-export async function getFromStorage(key : string) : Promise<any> {
+export async function getFromStorage(key : string) : Promise<string | null> {
 
   const storageReturn = await Storage.get({key: key});
   

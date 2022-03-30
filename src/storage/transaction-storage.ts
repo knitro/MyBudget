@@ -34,7 +34,7 @@ const default_TransactionStore: TransactionStore = {
 /*Updater Functions*/
 //////////////////////////////////////////////
 
-const storageKey : string = "Transaction"
+const storageKey = "Transaction"
 
 export async function setTransactions(a: Transaction[]) : Promise<boolean> {
   const object : TransactionStore = {
@@ -44,7 +44,7 @@ export async function setTransactions(a: Transaction[]) : Promise<boolean> {
 }
 
 export async function storeNewTransaction(a: Transaction) : Promise<boolean> {
-  let currentStore : TransactionStore = await getFromStorage(storageKey);
+  const currentStore : TransactionStore = await getTransactions();
   currentStore.transactions.push(a)
   return await saveToStorage(storageKey, currentStore)
 }
@@ -54,11 +54,9 @@ export async function storeNewTransaction(a: Transaction) : Promise<boolean> {
 //////////////////////////////////////////////
 
 export async function getTransactions() : Promise<TransactionStore> {
-
   const data = await getFromStorage(storageKey);
-
-  if (typeof data.value === 'string') {
-    return (JSON.parse(data.value) as TransactionStore);
+  if (typeof data === 'string') {
+    return (JSON.parse(data) as TransactionStore);
   } else { //Null Case
     return Object.assign({}, default_TransactionStore);
   }

@@ -3,7 +3,15 @@
     <HeaderItem />
     <ion-content :fullscreen="true">
 
-      <balance-display type="circular" />
+      <div id="balance-container">
+        <div id="circle" class=".d-flex">
+          <ion-text id="balance">
+              Current Balance:
+              <br/>
+              ${{balance.toFixed(2)}}
+          </ion-text>
+        </div>
+      </div>
 
       <div id="center">
         <div id="card-width">
@@ -12,51 +20,88 @@
           <br/>
           <ion-item>
             <ion-label position="floating">Notes</ion-label>
-            <ion-input placeholder="Put information about your transaction here"></ion-input>
+            <ion-input placeholder="Put information about your transaction here" @ionChange="adjustNotes"></ion-input>
           </ion-item>
         </div>
       </div>
-
-      <div id="home-submit-button">
-         <ion-button expand="block" size="large" mode="ios" onClick={{}}>Submit</ion-button>
-      </div>
     
     </ion-content>
+
+    <ion-footer>
+      <ion-toolbar>
+      </ion-toolbar>
+        <ion-button expand="block" size="large" mode="ios" @click="submitTransaction">Submit</ion-button>
+    </ion-footer>
+
   </ion-page>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { RangeCustomEvent } from '@ionic/core'
-import { IonContent, IonRange, IonText, IonLabel, IonInput, IonItem, IonButton, IonPage } from '@ionic/vue';
-import BalanceDisplay from '@/components/BalanceDisplay.vue';
+import { InputChangeEventDetail, RangeCustomEvent } from '@ionic/core'
+import { IonContent, IonRange, IonText, IonLabel, IonInput, IonItem, IonButton, IonPage, IonFooter, IonToolbar } from '@ionic/vue';
 import HeaderItem from '@/components/HeaderItem.vue';
+import { createTransaction } from "../../logic/create-transaction"
+import { getBalance } from '../../storage/balance-storage'
 
 export default defineComponent({
   name: 'HomePage',
-  components: { BalanceDisplay, IonContent, HeaderItem, IonRange, IonText, IonLabel, IonInput, IonItem, IonButton, IonPage },
+  components: { IonContent, HeaderItem, IonRange, IonText, IonLabel, IonInput, IonItem, IonButton, IonPage, IonFooter, IonToolbar },
   data() {
     return {
-      spendAmount: 0
+      balance: 0,
+      spendAmount: 0,
+      notes: "",
     }
   },
   methods: {
     adjustSpendAmount(event : RangeCustomEvent ) {
       this.spendAmount = event.detail.value as number
+    },
+    adjustNotes(event : InputChangeEventDetail) {
+      this.notes = event.value as string
+    },
+    async submitTransaction() {
+      await createTransaction(this.spendAmount, this.notes)
+      await this.updateBalance()
+    },
+    async updateBalance() {
+      this.balance = await getBalance()
     }
   },
+  mounted() {
+    this.updateBalance()
+  },
   setup() {
-
     const moneyFormatter = (value: number) => `${value.toFixed(2)}`;
-
     return {
-      moneyFormatter
+      moneyFormatter,
     }
   }
 });
 </script>
 
 <style scoped>
+
+  #balance-container {
+    padding-top: 5vw;
+    transform: translateX(10%);
+  }
+
+  #circle {
+    width: 80vw;
+    height: 80vw;
+    border-radius: 50%;
+    border: 3px solid lightskyblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #balance {
+    text-align: center;
+  }
+
   #center {
     display: flex;
     align-items: center;
@@ -68,10 +113,5 @@ export default defineComponent({
     width: 90vw;
     max-width: 90vw;
     /* background-color: blueviolet; */
-  }
-
-  #home-submit-button {
-    /* position: absolute; */
-    padding-top: 15vw;
   }
 </style>

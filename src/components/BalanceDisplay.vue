@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { IonText } from '@ionic/vue';
-
+import { getBalance } from '../storage/balance-storage'
 
 export default defineComponent({
   name: 'BalanceDisplay',
@@ -22,9 +22,17 @@ export default defineComponent({
   props: {
     type : String
   },
-  setup() {
-    const balance = 100.00;
-    return { balance }
+  data() {
+
+    let balance = 0
+    getBalance().then((value) => {
+      console.log("Balance = ", value)
+      balance = value
+    })
+
+    return {
+      balance
+    }
   }
 });
 </script>

@@ -6,7 +6,7 @@ import { storeNewTransaction, Transaction } from "@/storage/transaction-storage"
  * @param amount - the transaction amount. If the amount is negative, then this value will be added instead. 
  * @param notes 
  */
-export async function createTransaction(amount : number, notes : string) : Promise<boolean> {
+export const createTransaction = async (amount : number, notes : string) : Promise<boolean> => {
 
   // Create Transaction
   const currentTransaction : Transaction = {
