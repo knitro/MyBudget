@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCardHeader, IonCardTitle, InputChangeEventDetail } from '@ionic/vue';
+import { IonPage, IonContent, IonCardHeader, IonCardTitle, InputChangeEventDetail } from '@ionic/vue';
 import HeaderItem from '@/components/HeaderItem.vue';
 import { createTransaction } from "../../logic/create-transaction"
 import { getBalance } from '../../storage/balance-storage'
