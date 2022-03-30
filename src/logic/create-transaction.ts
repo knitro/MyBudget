@@ -1,5 +1,6 @@
 import { removeBalance } from "@/storage/balance-storage";
 import { storeNewTransaction, Transaction } from "@/storage/transaction-storage";
+import { uuid } from "vue-uuid";
 
 /**
  * Creates a transaction, stores it in storage, and updates the balance in storage.
@@ -10,6 +11,7 @@ export const createTransaction = async (amount : number, notes : string) : Promi
 
   // Create Transaction
   const currentTransaction : Transaction = {
+    id : uuid.v4(),
     amount : amount,
     timestamp: new Date(Date.now()),
     notes: notes,

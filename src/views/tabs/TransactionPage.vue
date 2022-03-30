@@ -25,14 +25,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { IonPage, IonContent, IonCardHeader, IonCardTitle, InputChangeEventDetail } from '@ionic/vue';
+import { IonPage, IonContent, IonCardHeader, IonCardTitle, InputChangeEventDetail, IonLabel, IonInput, IonItem, IonFooter, IonButton } from '@ionic/vue';
 import HeaderItem from '@/components/HeaderItem.vue';
 import { createTransaction } from "../../logic/create-transaction"
 import { getBalance } from '../../storage/balance-storage'
 
 export default defineComponent({
   name: 'TransactionPage',
-  components: { IonContent, HeaderItem, IonPage, IonCardHeader, IonCardTitle },
+  components: { IonContent, HeaderItem, IonPage, IonCardHeader, IonCardTitle, IonLabel, IonInput, IonItem, IonFooter, IonButton },
   data() {
     return {
       balance: 0,
