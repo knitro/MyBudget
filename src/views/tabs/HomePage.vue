@@ -2,7 +2,6 @@
   <ion-page>
     <HeaderItem />
     <ion-content :fullscreen="true">
-
       <div id="balance-container">
         <div id="circle" class=".d-flex">
           <ion-text id="balance">

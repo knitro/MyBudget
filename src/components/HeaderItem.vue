@@ -13,6 +13,5 @@ import { IonHeader, IonToolbar, IonTitle } from '@ionic/vue';
 export default defineComponent({
   name: 'HeaderItem',
   components: { IonHeader, IonToolbar, IonTitle },
-  props: {}
 });
 </script>
