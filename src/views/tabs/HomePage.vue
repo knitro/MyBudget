@@ -18,8 +18,8 @@
           <ion-range min="0" max="40" :pin-formatter="moneyFormatter" :pin="true" step="0.5" @ionChange="adjustSpendAmount"></ion-range>
           <br/>
           <ion-item>
-            <ion-label position="floating">Notes</ion-label>
-            <ion-input placeholder="Put information about your transaction here" @ionChange="adjustNotes"></ion-input>
+            <ion-label position="floating">Name</ion-label>
+            <ion-input placeholder="Name your transaction here" @ionChange="adjustLabel"></ion-input>
           </ion-item>
         </div>
       </div>
@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { InputChangeEventDetail, RangeCustomEvent } from '@ionic/core'
+import { RangeCustomEvent } from '@ionic/core'
 import { IonContent, IonRange, IonText, IonLabel, IonInput, IonItem, IonButton, IonPage, IonFooter } from '@ionic/vue';
 import HeaderItem from '@/components/HeaderItem.vue';
 import { createTransaction } from "../../logic/create-transaction"
@@ -48,18 +48,18 @@ export default defineComponent({
     return {
       balance: 0,
       spendAmount: 0,
-      notes: "",
+      label: "",
     }
   },
   methods: {
     adjustSpendAmount(event : RangeCustomEvent ) {
       this.spendAmount = event.detail.value as number
     },
-    adjustNotes(event : InputChangeEventDetail) {
-      this.notes = event.value as string
+    adjustLabel(event : CustomEvent) {
+      this.label = event.detail.value as string
     },
     async submitTransaction() {
-      await createTransaction(this.spendAmount, this.notes)
+      await createTransaction(this.spendAmount, this.label, "")
       await this.updateBalance()
     },
     async updateBalance() {

@@ -16,7 +16,9 @@ interface TransactionStore {
 export interface Transaction {
   id        : string
   amount    : number
+  balance   : number
   timestamp : Date
+  label     : string
   notes     : string
 }
 

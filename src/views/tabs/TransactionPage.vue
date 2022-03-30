@@ -8,11 +8,15 @@
       <br/>
       <ion-item>
         <ion-label position="floating">Amount</ion-label>
-        <ion-input placeholder="Put information about your transaction here" @ionChange="adjustSpendAmount" inputmode="decimal"></ion-input>
+        <ion-input placeholder="The amount you've spent" @ionChange="adjustSpendAmount" inputmode="decimal"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Label</ion-label>
+        <ion-input placeholder="Name your transaction here" @ionChange="adjustLabel"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Notes</ion-label>
-        <ion-input placeholder="Put information about your transaction here" @ionChange="adjustNotes"></ion-input>
+        <ion-input placeholder="Put detailed information about your transaction here" @ionChange="adjustNotes"></ion-input>
       </ion-item>
     </ion-content>
 
@@ -25,7 +29,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { IonPage, IonContent, IonCardHeader, IonCardTitle, InputChangeEventDetail, IonLabel, IonInput, IonItem, IonFooter, IonButton } from '@ionic/vue';
+import { IonPage, IonContent, IonCardHeader, IonCardTitle, IonLabel, IonInput, IonItem, IonFooter, IonButton } from '@ionic/vue';
 import HeaderItem from '@/components/HeaderItem.vue';
 import { createTransaction } from "../../logic/create-transaction"
 import { getBalance } from '../../storage/balance-storage'
@@ -37,20 +41,25 @@ export default defineComponent({
     return {
       balance: 0,
       spendAmount: 0,
+      label: "",
       notes: "",
     }
   },
   methods: {
-    adjustSpendAmount(event : InputChangeEventDetail ) {
-      if (event.value) {
-        this.spendAmount = Number.parseFloat(event.value)
+    adjustSpendAmount(event : CustomEvent) {
+      // console.log(event)
+      if (event.detail.value) {
+        this.spendAmount = Number.parseFloat(event.detail.value)
       }
     },
-    adjustNotes(event : InputChangeEventDetail) {
-      this.notes = event.value as string
+    adjustLabel(event : CustomEvent) {
+      this.label = event.detail.value
+    },
+    adjustNotes(event : CustomEvent) {
+      this.notes = event.detail.value
     },
     async submitTransaction() {
-      await createTransaction(this.spendAmount, this.notes)
+      await createTransaction(this.spendAmount, this.label, this.notes)
       await this.updateBalance()
     },
     async updateBalance() {
