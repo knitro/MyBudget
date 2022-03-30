@@ -27,9 +27,7 @@
     </ion-content>
 
     <ion-footer>
-      <ion-toolbar>
-      </ion-toolbar>
-        <ion-button expand="block" size="large" mode="ios" @click="submitTransaction">Submit</ion-button>
+      <ion-button expand="block" size="large" mode="ios" @click="submitTransaction">Submit</ion-button>
     </ion-footer>
 
   </ion-page>
@@ -38,14 +36,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { InputChangeEventDetail, RangeCustomEvent } from '@ionic/core'
-import { IonContent, IonRange, IonText, IonLabel, IonInput, IonItem, IonButton, IonPage, IonFooter, IonToolbar } from '@ionic/vue';
+import { IonContent, IonRange, IonText, IonLabel, IonInput, IonItem, IonButton, IonPage, IonFooter } from '@ionic/vue';
 import HeaderItem from '@/components/HeaderItem.vue';
 import { createTransaction } from "../../logic/create-transaction"
 import { getBalance } from '../../storage/balance-storage'
 
 export default defineComponent({
   name: 'HomePage',
-  components: { IonContent, HeaderItem, IonRange, IonText, IonLabel, IonInput, IonItem, IonButton, IonPage, IonFooter, IonToolbar },
+  components: { IonContent, HeaderItem, IonRange, IonText, IonLabel, IonInput, IonItem, IonButton, IonPage, IonFooter },
   data() {
     return {
       balance: 0,
