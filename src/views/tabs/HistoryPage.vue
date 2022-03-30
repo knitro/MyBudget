@@ -13,7 +13,8 @@
       <ListItem 
         v-for="item in history" 
         :key="item.id" 
-        :amount="item.amount" 
+        :amount="item.amount"
+        :balance="item.balance" 
         :label="item.label"
         :notes="item.notes"
         :dateString="new Date(item.timestamp).toDateString()"

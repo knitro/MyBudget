@@ -9,7 +9,10 @@
       </ion-text>
       <br/>
       <ion-text>
-        <i>{{dateString}}</i>
+        {{dateString}}
+      </ion-text>
+      <ion-text id="rhs-text">
+        <i>${{balance?.toFixed(2)}}</i>
       </ion-text>
     </ion-label>
   </ion-item>
@@ -24,6 +27,7 @@ export default defineComponent({
   components: { IonItem, IonLabel, IonText },
   props: {
     amount : Number,
+    balance : Number,
     label : String,
     notes: String,
     dateString : String
@@ -33,11 +37,13 @@ export default defineComponent({
 
 <style scoped>
 
-  #rhs-text{
+  #rhs-text {
     text-align: right;
     float: right;
-    color: red;
+  }
 
+  .red-text {
+    color: red
   }
 
 </style>
