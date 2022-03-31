@@ -10,6 +10,8 @@
       <ion-item>
         <ion-label position="floating">Name</ion-label>
         <ion-input placeholder="Type your income stream name"></ion-input>
+        <ion-label position="floating">Amount</ion-label>
+        <ion-input placeholder="$--:--"></ion-input>
         <ion-select value="per_month" ok-text="Set" cancel-text="Close">
           <ion-select-option value="per_hour">per Hour</ion-select-option>
           <ion-select-option value="per_day">per Day</ion-select-option>
