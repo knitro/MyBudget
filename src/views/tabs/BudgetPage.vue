@@ -7,20 +7,19 @@
         <ion-card-title>Income Streams</ion-card-title>
       </ion-card-header>
 
-      <ion-item>
-        <ion-label position="floating">Name</ion-label>
-        <ion-input placeholder="Type your income stream name"></ion-input>
-        <ion-label position="floating">Amount</ion-label>
-        <ion-input placeholder="$--:--"></ion-input>
-        <ion-select value="per_month" ok-text="Set" cancel-text="Close">
-          <ion-select-option value="per_hour">per Hour</ion-select-option>
-          <ion-select-option value="per_day">per Day</ion-select-option>
-          <ion-select-option value="per_week">per Week</ion-select-option>
-          <ion-select-option value="per_fortnight">per Fortnight</ion-select-option>
-          <ion-select-option value="per_month">per Month</ion-select-option>
-          <ion-select-option value="per_year">per Year</ion-select-option>
-        </ion-select>
-      </ion-item>
+      
+      <ion-button @click="addNewIncomeStream">
+        <ion-icon :icon="add" />
+        &nbsp;
+        <ion-label>
+          <ion-text>Add New Income</ion-text>
+        </ion-label>
+        &nbsp;
+      </ion-button>
+
+      <ion-card-header>
+        <ion-card-title>Expenditures</ion-card-title>
+      </ion-card-header>
 
       <ion-grid>
         <ion-row>
@@ -63,16 +62,31 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { IonPage, IonContent, IonCardHeader, IonCardTitle, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonGrid, IonRow, IonCol } from '@ionic/vue';
+import { IonPage, IonContent, IonCardHeader, IonCardTitle, IonGrid, IonRow, IonCol } from '@ionic/vue';
 import HeaderItem from '@/components/HeaderItem.vue';
 import BudgetCard from '@/components/BudgetCard.vue';
-import { home, cash, fastFood, repeat, train, body, calendar, ticket } from 'ionicons/icons'
+import { home, cash, fastFood, repeat, train, body, calendar, ticket, add } from 'ionicons/icons'
+import { createBlankIncomeStream, getIncomeStreams, IncomeStream } from '@/storage/budget-storage';
 
 export default defineComponent({
   name: 'BudgetPage',
-  components: { IonPage, IonContent, IonCardHeader, IonCardTitle, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonGrid, IonRow, IonCol, BudgetCard, HeaderItem },
+  components: { IonPage, IonContent, IonCardHeader, IonCardTitle, IonGrid, IonRow, IonCol, BudgetCard, HeaderItem },
+  data() {
+    return {
+      incomeStreams : [] as IncomeStream[]
+    }
+  },
+  methods: {
+    async updateIncomeStream() {
+      this.incomeStreams = await getIncomeStreams()
+    },
+    async addNewIncomeStream() {
+      await createBlankIncomeStream();
+      await this.updateIncomeStream();
+    }
+  },
   setup() {
-    return { home, cash, fastFood, repeat, train, body, calendar, ticket }
+    return { home, cash, fastFood, repeat, train, body, calendar, ticket, add }
   }
 });
 </script>

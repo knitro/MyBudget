@@ -2,6 +2,7 @@
 /*Imports*/
 //////////////////////////////////////////////
 
+import { v4 } from "uuid";
 import { getFromStorage, saveToStorage } from "./capacitor-storage";
 
 //////////////////////////////////////////////
@@ -100,4 +101,33 @@ export async function removeIncomeStream(a: string) : Promise<boolean> {
 export async function getIncomeStreams() : Promise<IncomeStream[]> {
   const currentBudget = await getBudget()
   return currentBudget.income;
+}
+
+export async function createBlankIncomeStream() : Promise<IncomeStream> {
+  const blankIncomeStream : IncomeStream = {
+    id      : v4(),
+    name    : "",
+    amount  : 0,
+    rate    : INCOME_RATE["PER DAY"]
+  }
+
+  // Check to make sure ID is not duplicated
+  let doesIdExist = true
+  while (doesIdExist) {
+    doesIdExist = false;
+    const streams : IncomeStream[] = await getIncomeStreams()
+    streams.forEach((value : IncomeStream) => {
+      if (value.id === blankIncomeStream.id) {
+        doesIdExist = true;
+      }
+    })
+    if (doesIdExist) {
+      blankIncomeStream.id = v4()
+    }
+  }
+
+  // Add IncomeStream to storage
+  await addIncomeStream(blankIncomeStream)
+
+  return blankIncomeStream;
 }
