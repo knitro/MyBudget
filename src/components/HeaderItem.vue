@@ -1,6 +1,6 @@
 <template>
-    <ion-header color="primary">
-      <ion-toolbar>
+    <ion-header>
+      <ion-toolbar color="primary">
         <ion-title>MyBudget</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -13,6 +13,5 @@ import { IonHeader, IonToolbar, IonTitle } from '@ionic/vue';
 export default defineComponent({
   name: 'HeaderItem',
   components: { IonHeader, IonToolbar, IonTitle },
-  props: {}
 });
 </script>
